@@ -68,15 +68,8 @@ def detectPersons(img_path, save_dir, weight_path, config_path, classes_file, co
             objects.append(object_data)
             cnt += 1
 
-            cv.rectangle(img, (x, y), (x+w,y+h), (255, 0 , 255), 2)
-            cv.putText(img,f'{class_names[class_ids[i]].upper()} {int(confs[i]*100)}%',
-                  (x, y-10), cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 255), 2)
-
     summary["num_person"] = cnt-1
     summary["objects"] = objects
 
     with open(os.path.join(save_dir,img_name+".json"), 'w') as outfile:
         json.dump(summary, outfile, indent=2)
-
-    plt.imshow(img)
-    plt.show()

@@ -3,7 +3,7 @@ import argparse
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--img_path',default='result_images[1]/test_images/1.jpg', help='Path to test image.')
+    parser.add_argument('--img_path',default='test_images[1]/test_images/1.jpg', help='Path to test image.')
     parser.add_argument('--save_dir',default='save_dir', help='Where to save the results')
     parser.add_argument('--model_config',default='model/yolov3-416.cfg', help='Path to YOLO model config.')
     parser.add_argument('--model_weights',default='model/yolov3-416.weights', help='Path to YOLO model weights.')
