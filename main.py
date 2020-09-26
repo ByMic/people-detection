@@ -13,7 +13,11 @@ def main():
     parser.add_argument('--whT',default=416,type=int, help='Input size for YOLO model.')
     args = parser.parse_args()
 
-    detectPersons(args.img_path, args.save_dir, args.model_weights, args.model_config, args.classes, args.confidence,args.NMS,args.whT)
+    summary, crop_imgs = detectPersons(args.img_path, args.save_dir, args.model_weights, args.model_config, args.classes, args.confidence,args.NMS,args.whT)
+
+    
+    #you can also just pass in the img_path argument and rely on the default values defined in yolo.py
+    #summary, crop_imgs = detectPersons(args.img_path)
 
 if __name__ == '__main__':
     main()

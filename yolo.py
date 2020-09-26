@@ -5,7 +5,7 @@ import json
 import os
 from pathlib import Path
  
-def detectPersons(img_path, save_dir, weight_path, config_path, classes_file, conf_thresh,nms_thresh,whT):
+def detectPersons(img_path, save_dir='save_dir', weight_path='model/yolov3-416.weights', config_path='model/yolov3-416.cfg', classes_file='model/coco.names', conf_thresh=0.3,nms_thresh=0.2,whT=416):
     
     Path(save_dir).mkdir(parents=True, exist_ok=True)
     
@@ -52,6 +52,7 @@ def detectPersons(img_path, save_dir, weight_path, config_path, classes_file, co
 
     cnt = 1
     objects = []
+    crop_imgs = []
     for i in indices:
         i = i[0]
         box = bbox[i]
@@ -64,6 +65,7 @@ def detectPersons(img_path, save_dir, weight_path, config_path, classes_file, co
             object_data["bottom"] = y+h
             object_data["right"] = x+w
             crop_img = img[y:y+h, x:x+w]
+            crop_imgs.append(crop_img)
             plt.imsave(os.path.join(save_dir,object_data["file"]),crop_img)
             objects.append(object_data)
             cnt += 1
@@ -73,3 +75,5 @@ def detectPersons(img_path, save_dir, weight_path, config_path, classes_file, co
 
     with open(os.path.join(save_dir,img_name+".json"), 'w') as outfile:
         json.dump(summary, outfile, indent=2)
+    
+    return summary, crop_imgs
